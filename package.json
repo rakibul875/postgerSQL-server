@@ -17,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/rakibul875/postgerSQL-server/issues"
   },
-  "homepage": "https://github.com/rakibul875/postgerSQL-server#readme"
+  "homepage": "https://github.com/rakibul875/postgerSQL-server#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  }
 }
