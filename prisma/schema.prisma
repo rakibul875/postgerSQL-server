@@ -8,19 +8,20 @@ datasource db {
 }
 
 model User {
-  id            String    @id
+  id            String   @id @default(uuid())
   name          String
-  email         String    @unique
-  emailVerified Boolean   @default(false)
+  email         String   @unique
+  emailVerified Boolean  @default(false)
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  role          UserRole  @default(User)
-  isDeleted     Boolean   @default(false)
-  sessions      Session[]
-  accounts      Account[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  role          UserRole @default(Customer)
+  isDeleted     Boolean  @default(false)
 
-  @@map("users")
+  sessions Session[]
+  accounts Account[]
+
+  @@map("allUsers")
 }
 
 model Session {
@@ -38,7 +39,6 @@ model Session {
 }
 
 enum UserRole {
-  User
   Admin
   Customer
 }

@@ -1,20 +1,23 @@
 import express from "express";
 import cors from "cors";
-import router from "./services/products";
+import dotenv from "dotenv";
 import { toNodeHandler } from "better-auth/node";
+import productRouter from "./services/products";
+import userRouter from "./services/user";
 import { auth } from "./lib/auts";
 const app = express();
-app.use(cors());
-app.use(express.json());
-app.use(router);
-
+dotenv.config();
+// app.use(cors());
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
     credentials: true,
   }),
 );
-app.all("/api/auth/*", toNodeHandler(auth));
+app.all("/api/auth/*splat", toNodeHandler(auth));
+app.use(express.json());
+app.use(productRouter);
+app.use(userRouter);
 
 app.get("/", (req, res) => {
   res.json({
