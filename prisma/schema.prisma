@@ -15,7 +15,7 @@ model User {
   image         String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-  role          UserRole @default(Customer)
+  role          UserRole @default(customer)
   isDeleted     Boolean  @default(false)
 
   sessions Session[]
@@ -39,8 +39,8 @@ model Session {
 }
 
 enum UserRole {
-  Admin
-  Customer
+  admin
+  customer
 }
 
 model Account {
