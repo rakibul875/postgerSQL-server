@@ -18,8 +18,9 @@ model User {
   role          UserRole  @default(User)
   isDeleted     Boolean   @default(false)
   sessions      Session[]
+  accounts      Account[]
 
-  @@map("user")
+  @@map("users")
 }
 
 model Session {
@@ -39,7 +40,27 @@ model Session {
 enum UserRole {
   User
   Admin
-  Manager
+  Customer
+}
+
+model Account {
+  id                    String    @id @default(uuid())
+  userId                String
+  accountId             String
+  providerId            String
+  password              String?
+  accessToken           String?
+  refreshToken          String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  idToken               String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("accounts")
 }
 
 model Products {
