@@ -3,6 +3,39 @@ import prisma from "../lib/prisma";
 
 const router = Router();
 
+router.get("/products/:id", async (req: Request, res: Response) => {
+  try {
+    const id = String(req.params.id);
+    const product = await prisma.products.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+        data: null,
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Product retrieved successfully",
+      data: product,
+    });
+  } catch (error) {
+    console.error("Get single product error:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve product",
+      data: null,
+    });
+  }
+});
+
 router.get("/products", async (req: Request, res: Response) => {
   try {
     const { search = "", category = "All" } = req.query;
