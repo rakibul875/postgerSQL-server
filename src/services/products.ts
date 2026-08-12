@@ -3,6 +3,31 @@ import prisma from "../lib/prisma";
 
 const router = Router();
 
+router.get("/products/latest", async (req: Request, res: Response) => {
+  try {
+    const products = await prisma.products.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      take: 3,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Latest 3 products retrieved successfully",
+      data: products,
+    });
+  } catch (error) {
+    console.error("Get latest products error:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve latest products",
+      data: [],
+    });
+  }
+});
+
 router.get("/products/:id", async (req: Request, res: Response) => {
   try {
     const id = String(req.params.id);
