@@ -3,6 +3,46 @@ import prisma from "../lib/prisma";
 
 const cartRouter = Router();
 
+cartRouter.delete("/my-cart/:id", async (req: Request, res: Response) => {
+  try {
+    const id = String(req.params.id);
+
+    const cartData = await prisma.cart.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!cartData) {
+      return res.status(404).json({
+        success: false,
+        message: "Cart item not found",
+        data: null,
+      });
+    }
+
+    const deletedData = await prisma.cart.delete({
+      where: {
+        id: id,
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Cart item deleted successfully",
+      data: deletedData,
+    });
+  } catch (error) {
+    console.error("Delete cart error:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete cart item",
+      data: null,
+    });
+  }
+});
+
 cartRouter.get("/cart/:id", async (req: Request, res: Response) => {
   const userId = String(req.params.id);
   const cartData = await prisma.cart.findMany({
