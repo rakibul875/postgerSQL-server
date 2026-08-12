@@ -67,7 +67,7 @@ model Products {
   id          String   @id @default(uuid())
   name        String
   category    String
-  price       Float
+  price       String
   description String
   image       String
   createdAt   DateTime @default(now())
