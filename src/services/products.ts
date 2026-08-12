@@ -9,12 +9,12 @@ router.get("/products/latest", async (req: Request, res: Response) => {
       orderBy: {
         createdAt: "desc",
       },
-      take: 3,
+      take: 4,
     });
 
     res.status(200).json({
       success: true,
-      message: "Latest 3 products retrieved successfully",
+      message: "Latest 4 products retrieved successfully",
       data: products,
     });
   } catch (error) {
