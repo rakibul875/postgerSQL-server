@@ -5,6 +5,7 @@ import { toNodeHandler } from "better-auth/node";
 import productRouter from "./services/products";
 import userRouter from "./services/user";
 import { auth } from "./lib/auts";
+import cartRouter from "./services/cart";
 const app = express();
 dotenv.config();
 // app.use(cors());
@@ -18,6 +19,7 @@ app.all("/api/auth/*splat", toNodeHandler(auth));
 app.use(express.json());
 app.use(productRouter);
 app.use(userRouter);
+app.use(cartRouter);
 
 app.get("/", (req, res) => {
   res.json({
