@@ -4,6 +4,15 @@ import { auth } from "../lib/auts";
 
 const router = Router();
 
+router.get("/users", async (req: Request, res: Response) => {
+  const data = await prisma.user.findMany();
+  res.json({
+    success: true,
+    message: "Users retrieved successfully",
+    data: data,
+  });
+});
+
 router.post("/api/auth/sign-up/email", async (req: Request, res: Response) => {
   try {
     const userData = req.body;
