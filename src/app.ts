@@ -6,6 +6,7 @@ import productRouter from "./services/products";
 import userRouter from "./services/user";
 import { auth } from "./lib/auts";
 import cartRouter from "./services/cart";
+import subscriptionRouter from "./services/subscription";
 const app = express();
 dotenv.config();
 // app.use(cors());
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(productRouter);
 app.use(userRouter);
 app.use(cartRouter);
+app.use(subscriptionRouter);
 
 app.get("/", (req, res) => {
   res.json({
