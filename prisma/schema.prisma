@@ -101,3 +101,15 @@ model Subscription {
 
   @@map("subscriptions")
 }
+
+model Order{
+  id String @id @default(uuid())
+  productImage String
+  userId String
+  sessionId String
+  productName String
+  productPrice String
+  status String
+  createdAt DateTime @default(now())
+ @@map("orders")
+}
