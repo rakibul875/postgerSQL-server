@@ -2,6 +2,19 @@ import { Request, Response, Router } from "express";
 import prisma from "../lib/prisma";
 
 const orderRouter = Router();
+orderRouter.delete("/my-order/:id", async (req: Request, res: Response) => {
+  const id = String(req.params.id);
+  const data = await prisma.order.delete({
+    where: {
+      id: id,
+    },
+  });
+  res.json({
+    success: true,
+    message: "Order deleted successfully",
+    data: data,
+  });
+});
 orderRouter.get("/my-order/:id", async (req: Request, res: Response) => {
   const userId = String(req.params.id);
   const data = await prisma.order.findMany({
