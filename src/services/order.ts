@@ -28,6 +28,16 @@ orderRouter.get("/my-order/:id", async (req: Request, res: Response) => {
     data: data,
   });
 });
+
+orderRouter.get("/orders", async (req: Request, res: Response) => {
+  const data = await prisma.order.findMany();
+  res.json({
+    success: true,
+    message: "Orders retrieved successfully",
+    data: data,
+  });
+});
+
 orderRouter.post("/order", async (req: Request, res: Response) => {
   const orderData = req.body;
   const sessionId = orderData.sessionId;
