@@ -2,6 +2,19 @@ import { Request, Response, Router } from "express";
 import prisma from "../lib/prisma";
 
 const orderRouter = Router();
+orderRouter.get("/my-order/:id", async (req: Request, res: Response) => {
+  const userId = String(req.params.id);
+  const data = await prisma.order.findMany({
+    where: {
+      userId: userId,
+    },
+  });
+  res.json({
+    success: true,
+    message: "Orders retrieved successfully",
+    data: data,
+  });
+});
 orderRouter.post("/order", async (req: Request, res: Response) => {
   const orderData = req.body;
   const sessionId = orderData.sessionId;
