@@ -3,6 +3,23 @@ import prisma from "../lib/prisma";
 
 const subscriptionRouter = Router();
 
+subscriptionRouter.get(
+  "/my-payment/:id",
+  async (req: Request, res: Response) => {
+    const id = String(req.params.id);
+    const data = await prisma.subscription.findMany({
+      where: {
+        userId: id,
+      },
+    });
+    res.json({
+      success: true,
+      message: "Subscriptions retrieved successfully",
+      data: data,
+    });
+  },
+);
+
 subscriptionRouter.post(
   "/subscription",
   async (req: Request, res: Response) => {
