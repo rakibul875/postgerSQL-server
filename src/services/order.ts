@@ -15,6 +15,25 @@ orderRouter.delete("/my-order/:id", async (req: Request, res: Response) => {
     data: data,
   });
 });
+
+orderRouter.patch("/orders/:id", async (req: Request, res: Response) => {
+  const id = String(req.params.id);
+  const { status } = req.body;
+  const data = await prisma.order.update({
+    where: {
+      id: id,
+    },
+    data: {
+      status,
+    },
+  });
+  res.json({
+    success: true,
+    message: "Order status updated successfully",
+    data,
+  });
+});
+
 orderRouter.get("/my-order/:id", async (req: Request, res: Response) => {
   const userId = String(req.params.id);
   const data = await prisma.order.findMany({
