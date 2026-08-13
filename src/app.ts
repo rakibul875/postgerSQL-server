@@ -7,6 +7,7 @@ import userRouter from "./services/user";
 import { auth } from "./lib/auts";
 import cartRouter from "./services/cart";
 import subscriptionRouter from "./services/subscription";
+import orderRouter from "./services/order";
 const app = express();
 dotenv.config();
 // app.use(cors());
@@ -22,6 +23,7 @@ app.use(productRouter);
 app.use(userRouter);
 app.use(cartRouter);
 app.use(subscriptionRouter);
+app.use(orderRouter);
 
 app.get("/", (req, res) => {
   res.json({
