@@ -76,15 +76,28 @@ model Products {
   @@map("products")
 }
 
-model Cart{
-  id String @id @default(uuid())
-  foodId String
-  name String
-  price String
-  image String
-  userId String
+model Cart {
+  id        String   @id @default(uuid())
+  foodId    String
+  name      String
+  price     String
+  image     String
+  userId    String
   userEmail String
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  createAt  DateTime @default(now())
+  updateAt  DateTime @updatedAt
+
   @@map("carts")
+}
+
+model Subscription {
+  id        String   @id @default(uuid())
+  sessionId String
+  userName  String
+  amount    Float?
+  userId    String
+  userEmail String
+  createdAt DateTime @default(now())
+
+  @@map("subscriptions")
 }
