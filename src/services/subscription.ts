@@ -20,6 +20,15 @@ subscriptionRouter.get(
   },
 );
 
+subscriptionRouter.get("/payment", async (req: Request, res: Response) => {
+  const data = await prisma.subscription.findMany();
+  res.json({
+    success: true,
+    message: "Data retrieved successful",
+    data: data,
+  });
+});
+
 subscriptionRouter.post(
   "/subscription",
   async (req: Request, res: Response) => {
