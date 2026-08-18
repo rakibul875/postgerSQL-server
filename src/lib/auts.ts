@@ -15,7 +15,10 @@ const prisma = new PrismaClient({
 });
 
 export const auth = betterAuth({
-  trustedOrigins: [process.env.CLIENT_URL || "http://localhost:5173"],
+  trustedOrigins: [
+    process.env.CLIENT_URL || "http://localhost:5173",
+    "https://restauranthub-lovat.vercel.app",
+  ],
 
   database: prismaAdapter(prisma, {
     provider: "postgresql",
@@ -23,6 +26,16 @@ export const auth = betterAuth({
 
   emailAndPassword: {
     enabled: true,
+  },
+
+  advanced: {
+    crossSubdomainCookies: {
+      enabled: true,
+    },
+    defaultCookieAttributes: {
+      sameSite: "none",
+      secure: true,
+    },
   },
 
   user: {
