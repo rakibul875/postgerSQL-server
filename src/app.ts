@@ -10,7 +10,6 @@ import subscriptionRouter from "./services/subscription";
 import orderRouter from "./services/order";
 const app = express();
 dotenv.config();
-// app.use(cors());
 app.use(
   cors({
     origin: process.env.CLIENT_URL || "http://localhost:5173",
