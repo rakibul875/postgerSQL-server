@@ -9,10 +9,16 @@ import cartRouter from "./services/cart";
 import subscriptionRouter from "./services/subscription";
 import orderRouter from "./services/order";
 const app = express();
+app.set("trust proxy", 1);
 dotenv.config();
+const allowedOrigins = [
+  "https://restauranthub-lovat.vercel.app",
+  process.env.CLIENT_URL,
+].filter((url): url is string => Boolean(url));
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: allowedOrigins,
     credentials: true,
   }),
 );

@@ -14,11 +14,17 @@ const prisma = new PrismaClient({
   adapter,
 });
 
+// trustedOrigins এর টাইপ সেফটি
+const trustedOrigins = [
+  "https://restauranthub-lovat.vercel.app",
+  process.env.CLIENT_URL || "http://localhost:5173",
+];
+
 export const auth = betterAuth({
-  trustedOrigins: [
-    process.env.CLIENT_URL || "http://localhost:5173",
-    "https://restauranthub-lovat.vercel.app",
-  ],
+  // Backend Render URL উল্লেখ করা প্রয়োজন
+  baseURL: process.env.BETTER_AUTH_URL,
+
+  trustedOrigins,
 
   database: prismaAdapter(prisma, {
     provider: "postgresql",
@@ -29,13 +35,13 @@ export const auth = betterAuth({
   },
 
   advanced: {
+    // Vercel এবং Render ভিন্ন ডোমেইন হওয়ায় crossSubdomainCookies বন্ধ রাখতে হবে
     crossSubdomainCookies: {
-      enabled: true,
+      enabled: false,
     },
     defaultCookieAttributes: {
-      sameSite: "none",
-      secure: true,
-      partitioned: true,
+      sameSite: "none", // Cross-site request-এর জন্য আবশ্যক
+      secure: true, // HTTPS-এ true হতে হবে
     },
   },
 
